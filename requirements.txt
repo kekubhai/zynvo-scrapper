@@ -2,6 +2,6 @@ requests
 uvicorn
 fastapi
 supabase
-json
 dotenv
+cors
 pymongo
