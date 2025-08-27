@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 origins =[
     "http://localhost:3000",
+    "https://zynvo.social"
 ]
 app.add_middleware(
     CORSMiddleware,
