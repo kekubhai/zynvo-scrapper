@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian College News</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold mb-6 text-center">Latest Indian College News</h1>
+        <div id="news-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Cards will be injected here -->
+        </div>
+    </div>
+    <script>
+    fetch('./indian_college_news.json')
+      .then(response => response.json())
+      .then(newsList => {
+        const container = document.getElementById('news-cards');
+        if (Array.isArray(newsList)) {
+          newsList.forEach(news => {
+            container.innerHTML += `
+              <div class="bg-white rounded-lg shadow p-6 flex flex-col justify-between">
+                <h2 class="text-xl font-semibold mb-2">${news.title}</h2>
+                <span class="inline-block px-3 py-1 mb-2 rounded bg-blue-100 text-blue-800 text-xs font-medium">${news.category}</span>
+                <p class="text-gray-700 mb-4">${news.summary}</p>
+                <div class="flex justify-between items-center text-sm text-gray-500">
+                  <span>Source: ${news.source}</span>
+                  <span>${news.date}</span>
+                </div>
+              </div>
+            `;
+          });
+        } else {
+          container.innerHTML = '<p class="text-center col-span-3">No news data found.</p>';
+        }
+      })
+      .catch(err => {
+        document.getElementById('news-cards').innerHTML = '<p class="text-center col-span-3 text-red-500">Failed to load news data.</p>';
+      });
+    </script>
+</body>
+</html>
